@@ -1,19 +1,44 @@
-const { Client } = require("@notionhq/client");
-const db = require("./lib/database");
-const pages = require("./lib/pages");
+import { getDatabaseProperties } from './lib/database.js';
+import { queryDatabase, queryAllDatabase } from './lib/pages.js';
 
-let notion = null;
+
+// Notion version
+const NOTION_VERSION = '2022-06-28';
+
+// Central fetch function used by the wrapper
+async function notionFetch(url, token, options = {}) {
+
+    const res = await fetch(url, {
+        method: options.method || 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Notion-Version': NOTION_VERSION,
+            'Content-Type': 'application/json',
+            ...options.headers,
+        },
+    body: options.body ? JSON.stringify(options.body) : undefined,
+    });
+
+    if (!res.ok) {
+        throw new Error(`Notion API Fehler ${res.status}: ${await res.text()}`);
+    }
+    return res.json();
+}
 
 function init(token) {
-  notion = new Client({ auth: token });
   
-  return {
+    if (!token) throw new Error('API Token fehlt!');
 
-    // database.js
-    getDatabaseProperties: (id) => db.getDatabaseProperties(notion, id),
-    queryDatabase: (id, filter) => db.queryDatabase(notion, id, filter),
-    queryAllDatabase: (id, filter) => db.queryAllDatabase(notion, id, filter),
+    return {
+    getDatabaseProperties: (databaseId, options) =>
+      getDatabaseProperties(notionFetch, token, databaseId, options),
+
+    queryDatabase: (databaseId, filter) =>
+      queryDatabase(notionFetch, token, databaseId, filter),
+
+    queryAllDatabase: (databaseId, filter) =>
+      queryAllDatabase(notionFetch, token, databaseId, filter),
   };
 }
 
-module.exports = { init };
+export { init };
