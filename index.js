@@ -33,11 +33,6 @@ function init(token) {
     getDatabaseProperties: (databaseId, options) =>
       getDatabaseProperties(notionFetch, token, databaseId, options),
 
-    queryDatabase: (databaseId, filter) =>
-      queryDatabase(notionFetch, token, databaseId, filter),
-
-    queryAllDatabase: (databaseId, filter) =>
-      queryAllDatabase(notionFetch, token, databaseId, filter),
   };
 }
 
