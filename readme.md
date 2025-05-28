@@ -24,31 +24,36 @@ npm install notionbridge
 ```js
 import { getDatabaseProperties } from 'notionbridge';
 
-// Your custom fetch function to call Notion API
-async function notionFetch(url, token) {
-  const res = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Notion-Version': '2022-06-28',
-      'Content-Type': 'application/json',
-    },
-  });
+// Initialize your client with your Notion API token
+const notion = notionbridge('your-integration-token');
 
-  if (!res.ok) {
-    throw new Error(`Error: ${res.status} - ${await res.text()}`);
+// Example: Get database properties
+async function example() {
+  try {
+    
+    const props = await notion.getDatabaseProperties('your-database-id', { full: true });
+    console.log('Database properties:', props);
+
+    // Query the database with a filter
+    const queryResult = await notion.queryDatabase('your-database-id', {
+      filter: {
+        property: 'Status',
+        select: {
+          equals: 'In Progress'
+        }
+      }
+    });
+    console.log('Filtered query result:', queryResult);
+
+    // Query all pages in the database (pagination handled internally)
+    const allPages = await notion.queryAllDatabase('your-database-id');
+    console.log('All pages:', allPages);
+  } catch (error) {
+    console.error('Error:', error);
   }
-
-  return await res.json();
 }
 
-// Example usage
-const token = 'your-integration-token';
-const databaseId = 'your-database-id';
-
-getDatabaseProperties(notionFetch, token, databaseId, { full: true })
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
+example();
 ```
 
 ## API

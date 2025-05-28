@@ -20,20 +20,30 @@ async function notionFetch(url, token, options = {}) {
     });
 
     if (!res.ok) {
-        throw new Error(`Notion API Fehler ${res.status}: ${await res.text()}`);
+        throw new Error(`Notion API ERROR ${res.status}: ${await res.text()}`);
     }
     return res.json();
 }
 
-function init(token) {
+function notionbridge(token) {
   
-    if (!token) throw new Error('API Token fehlt!');
+    if (!token) throw new Error('API Token is missing!');
 
     return {
+
+    // Returns properties of the database, optionally with full options list
     getDatabaseProperties: (databaseId, options) =>
-      getDatabaseProperties(notionFetch, token, databaseId, options),
+        getDatabaseProperties(notionFetch, token, databaseId, options),
 
-  };
-}
+    // Queries the database once, returns first page of results (max 100 entries)
+    queryDatabase: (databaseId, filter) =>
+        queryDatabase(notionFetch, token, databaseId, filter),
 
-export { init };
+    // Queries the database repeatedly to get all pages, returns full list of entries
+    queryAllDatabase: (databaseId, filter) =>
+        queryAllDatabase(notionFetch, token, databaseId, filter),
+    };
+};
+
+
+export { notionbridge };
