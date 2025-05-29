@@ -1,4 +1,4 @@
-# notionbridge
+# easynotion
 
 **A minimal Notion API wrapper without SDK**  
 (Currently still under development)
@@ -98,7 +98,7 @@ Description:
 Creates a new page in the specified database with the given property values.
 
 `appendBlockChildren(blockId, children)`  
-Parameters:
+Parameters:  
 `blockId (string)` — The ID of the parent block or page to append children to
 `children` (Array<Object>) — Array of block objects created by block builder functions
 Returns:  
@@ -106,6 +106,8 @@ Returns:
 Description:  
 Appends an array of child blocks to a specified block or page by calling the Notion API PATCH endpoint
 `/v1/blocks/{blockId}/children.`
+
+---
 
 ### Block builder functions
 All return objects formatted according to the Notion API specification to represent blocks:
@@ -121,6 +123,8 @@ Creates a to-do (checkbox) block; checked is a boolean indicating if the box is 
 
 `createBulletedListBlock(text)`  
 Creates a bulleted list item block with the specified text.
+
+---
 
 ## Notes
 Make sure your token has the necessary permissions for the target database
