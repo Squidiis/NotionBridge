@@ -27,10 +27,10 @@ npm install easynotion
 ## Usage
 
 ```js
-import { getDatabaseProperties } from 'notionbridge';
+import { getDatabaseProperties } from 'easynotion';
 
 // Initialize your client with your Notion API token
-const notion = notionbridge('your-integration-token');
+const notion = easynotion('your-integration-token');
 
 // Example: Get database properties
 async function example() {
