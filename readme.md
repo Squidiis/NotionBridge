@@ -1,4 +1,4 @@
-# easynotion
+# EasyNotion
 
 **A minimal Notion API wrapper without SDK**  
 (Currently still under development)
@@ -21,7 +21,7 @@
 ## Installation
 
 ```bash
-npm install notionbridge
+npm install easynotion
 ```
 
 ## Usage
