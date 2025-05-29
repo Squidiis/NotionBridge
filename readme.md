@@ -63,63 +63,63 @@ example();
 
 ## API
 
-`getDatabaseProperties(databaseId, options)`
-Parameters:
+`getDatabaseProperties(databaseId, options)`  
+Parameters:  
 - `databaseId (string)` — The Notion database ID
 - `options` (object, optional) — Options object; { full: true } to get detailed properties including options lists
-Returns:
+Returns:  
 - Promise resolving to an object with database properties
 
-`queryDatabase(databaseId, filter)`
-Parameters:
+`queryDatabase(databaseId, filter)`  
+Parameters:  
 - `databaseId` (string): The Notion database ID
 - `filter` (object, optional): Notion API filter object to limit query results
-Returns:
+Returns:  
 - Promise resolving to a single page of results matching the filter, including pagination info
-Description:
+Description:  
 Queries the specified database with optional filters, returning matching pages (max 100 per call).
 
-`queryAllDatabase(databaseId, filter)`
-Parameters:
+`queryAllDatabase(databaseId, filter)`  
+Parameters:  
 - `databaseId` (string): The Notion database ID
 - `filter` (object, optional): Notion API filter object to limit query results
-Returns:
+Returns:  
 - Promise resolving to an array with all pages matching the filter, handles pagination internally
-Description:
+Description:  
 Retrieves all pages from a database matching the filter, iterating over all pages automatically.
 
-`createPage(databaseId, properties)`
+`createPage(databaseId, properties)`  
 Parameters:
 - `databaseId` (string): The Notion database ID
 - `properties` (object): Properties object following the Notion API format to set on the new page
-Returns:
+Returns:  
 - Promise resolving to the created page object
-Description:
+Description:  
 Creates a new page in the specified database with the given property values.
 
-`appendBlockChildren(blockId, children)`
+`appendBlockChildren(blockId, children)`  
 Parameters:
 `blockId (string)` — The ID of the parent block or page to append children to
 `children` (Array<Object>) — Array of block objects created by block builder functions
-Returns:
+Returns:  
 - Promise resolving to the Notion API response containing the updated block children
-Description:
+Description:  
 Appends an array of child blocks to a specified block or page by calling the Notion API PATCH endpoint
 `/v1/blocks/{blockId}/children.`
 
 ### Block builder functions
 All return objects formatted according to the Notion API specification to represent blocks:
 
-`createParagraphBlock(text)`
+`createParagraphBlock(text)`  
 Creates a paragraph block with the provided string text.
 
-`createHeadingBlock(text, level)`
+`createHeadingBlock(text, level)`  
 Creates a heading block at level 1, 2, or 3 with the given text.
 
-`createToDoBlock(text, checked)`
+`createToDoBlock(text, checked)`  
 Creates a to-do (checkbox) block; checked is a boolean indicating if the box is checked.
 
-`createBulletedListBlock(text)`
+`createBulletedListBlock(text)`  
 Creates a bulleted list item block with the specified text.
 
 ## Notes
