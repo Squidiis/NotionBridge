@@ -57,29 +57,29 @@ async function example() {
 			},
 			Date: { type: "date" } // Due date
 		}
-		);
-		console.log('New database created:', newDatabase);
+	);
+	console.log('New database created:', newDatabase);
 
-		// 3. Define content blocks to add to the new page
-		const blockChildren = [
+	// 3. Define content blocks to add to the new page
+	const blockChildren = [
 		notion.createQuoteBlock('test quote'),      // Quote block
 		notion.createDividerBlock(),                // Divider block
 		notion.createParagraphBlock('test space')   // Paragraph block
-		];
+	];
 
-		// 4. Define the property values for the new page
-		const newPageProperties = {
+	// 4. Define the property values for the new page
+	const newPageProperties = {
 		Status: 'Offen', // Status value
 		Name: 'Test'     // Title value
-		};
+	};
 
-		// 5. Create a new page (entry) in the newly created database
-		const newPage = await notion.createPage(newDatabase.id, newPageProperties);
-		console.log('New page created:', newPage);
+	// 5. Create a new page (entry) in the newly created database
+	const newPage = await notion.createPage(newDatabase.id, newPageProperties);
+	console.log('New page created:', newPage);
 
-		// 6. Append the content blocks to the new page
-		await notion.appendBlockChildren(newPage.id, blockChildren);
-		console.log('Blocks appended to new page');
+	// 6. Append the content blocks to the new page
+	await notion.appendBlockChildren(newPage.id, blockChildren);
+	console.log('Blocks appended to new page');
 
 }
 
