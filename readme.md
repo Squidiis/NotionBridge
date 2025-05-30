@@ -11,8 +11,15 @@
 - Query databases with filters  
 - Query **all** database entries with automatic pagination  
 - Create new pages in a database  
+- Create new databases with simple property definitions  
 - Append child blocks to any block or page  
-- Create various block types easily: paragraph, headings, to-dos, bulleted lists  
+- Easily create various block types:
+  - Paragraph, headings, to-dos, bulleted lists, numbered lists  
+  - Toggles with nested children  
+  - Code blocks with language support  
+  - Dividers, quotes, callouts  
+  - Images via public URLs  
+  - Page links to existing Notion pages  
 - Uses simple fetch requests with your Notion integration token  
 - Lightweight and flexible — zero external dependencies 
 
@@ -34,28 +41,46 @@ const notion = easynotion('your-integration-token');
 
 // Example: Get database properties
 async function example() {
-  try {
-    
-    const props = await notion.getDatabaseProperties('your-database-id', { full: true });
-    console.log('Database properties:', props);
 
-    // Query the database with a filter
-    const queryResult = await notion.queryDatabase('your-database-id', {
-      filter: {
-        property: 'Status',
-        select: {
-          equals: 'In Progress'
-        }
-      }
-    });
-    console.log('Filtered query result:', queryResult);
+  	const dbProperties = await notion.getDatabaseProperties('Database-id', { full: false });
+	console.log('Existing database properties:', dbProperties);
 
-    // Query all pages in the database (pagination handled internally)
-    const allPages = await notion.queryAllDatabase('your-database-id');
-    console.log('All pages:', allPages);
-  } catch (error) {
-    console.error('Error:', error);
-  }
+	// 2. Create a new database on a specific parent page
+	const newDatabase = await notion.createDatabase(
+		"ID of the parent page",
+		"Example", // Title of the new database
+		{
+		Name: { type: "title" }, // Title property
+		Status: {
+			type: "status",
+			options: ["Open", "In Progress", "Done"] // Status options
+			},
+			Date: { type: "date" } // Due date
+		}
+		);
+		console.log('New database created:', newDatabase);
+
+		// 3. Define content blocks to add to the new page
+		const blockChildren = [
+		notion.createQuoteBlock('test quote'),      // Quote block
+		notion.createDividerBlock(),                // Divider block
+		notion.createParagraphBlock('test space')   // Paragraph block
+		];
+
+		// 4. Define the property values for the new page
+		const newPageProperties = {
+		Status: 'Offen', // Status value
+		Name: 'Test'     // Title value
+		};
+
+		// 5. Create a new page (entry) in the newly created database
+		const newPage = await notion.createPage(newDatabase.id, newPageProperties);
+		console.log('New page created:', newPage);
+
+		// 6. Append the content blocks to the new page
+		await notion.appendBlockChildren(newPage.id, blockChildren);
+		console.log('Blocks appended to new page');
+
 }
 
 example();
@@ -70,12 +95,20 @@ Parameters:
 Returns:  
 - Promise resolving to an object with database properties
 
+`createDatabase(parentPageId, title, properties)`  
+Parameters:  
+- `parentPageId (string)` — The ID of the parent page where the database will be created  
+- `title (string)` — The title of the new database  
+- `properties (object)` — Simplified object defining properties, e.g. `{ Name: "title", Status: { type: "status", options: ["Open", "Done"] } }`  
+Returns:  
+- Promise resolving to the newly created database object
+
 `queryDatabase(databaseId, filter)`  
 Parameters:  
 - `databaseId` (string): The Notion database ID
 - `filter` (object, optional): Notion API filter object to limit query results
 Returns:  
-- Promise resolving to a single page of results matching the filter, including pagination info
+- Promise resolving to a single page of results matching the filter, including pagination info  
 Description:  
 Queries the specified database with optional filters, returning matching pages (max 100 per call).
 
@@ -84,7 +117,7 @@ Parameters:
 - `databaseId` (string): The Notion database ID
 - `filter` (object, optional): Notion API filter object to limit query results
 Returns:  
-- Promise resolving to an array with all pages matching the filter, handles pagination internally
+- Promise resolving to an array with all pages matching the filter, handles pagination internally  
 Description:  
 Retrieves all pages from a database matching the filter, iterating over all pages automatically.
 
@@ -93,7 +126,7 @@ Parameters:
 - `databaseId` (string): The Notion database ID
 - `properties` (object): Properties object following the Notion API format to set on the new page
 Returns:  
-- Promise resolving to the created page object
+- Promise resolving to the created page object  
 Description:  
 Creates a new page in the specified database with the given property values.
 
@@ -102,7 +135,7 @@ Parameters:
 `blockId (string)` — The ID of the parent block or page to append children to
 `children` (Array<Object>) — Array of block objects created by block builder functions
 Returns:  
-- Promise resolving to the Notion API response containing the updated block children
+- Promise resolving to the Notion API response containing the updated block children  
 Description:  
 Appends an array of child blocks to a specified block or page by calling the Notion API PATCH endpoint
 `/v1/blocks/{blockId}/children.`
@@ -123,6 +156,30 @@ Creates a to-do (checkbox) block; checked is a boolean indicating if the box is 
 
 `createBulletedListBlock(text)`  
 Creates a bulleted list item block with the specified text.
+
+- `createNumberedListBlock(text)`  
+  Creates a numbered list item block with the given text.
+
+- `createToggleBlock(text, children)`  
+  Creates a toggle block with title `text` and optional child blocks `children` (an array of block objects).
+
+- `createDividerBlock()`  
+  Creates a divider block (horizontal line).
+
+- `createCodeBlock(code, language)`  
+  Creates a code block with source code `code` and programming language `language` (e.g., `"javascript"` or `"python"`).
+
+- `createImageBlock(imageUrl)`  
+  Creates an image block with the public image URL `imageUrl`.
+
+- `createCalloutBlock(text, icon)`  
+  Creates a callout block with content `text` and optional icon (emoji or image URL) `icon`.
+
+- `createQuoteBlock(text)`  
+  Creates a quote block with the text `text`.
+
+- `createPageLinkBlock(pageId)`  
+  Creates a link to an existing Notion page by its `pageId`.
 
 ---
 

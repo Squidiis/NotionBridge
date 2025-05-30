@@ -1,6 +1,19 @@
-import { getDatabaseProperties } from './lib/database.js';
+import { getDatabaseProperties, createDatabase } from './lib/database.js';
 import { queryDatabase, queryAllDatabase, createPage, appendBlockChildren } from './lib/pages.js';
-import { createParagraphBlock, createHeadingBlock, createToDoBlock, createBulletedListBlock } from './lib/blocks.js';
+import { 
+    createParagraphBlock, 
+    createHeadingBlock,
+    createToDoBlock, 
+    createBulletedListBlock, 
+    createNumberedListBlock,
+    createToggleBlock,
+    createDividerBlock,
+    createCodeBlock,
+    createImageBlock,
+    createCalloutBlock,
+    createQuoteBlock,
+    createPageLinkBlock
+    } from './lib/blocks.js';
 
 // Notion version
 const NOTION_VERSION = '2022-06-28';
@@ -60,8 +73,20 @@ function easynotion(token) {
     * @param {string} databaseId - ID of the Notion database
     * @param {Object} options - Additional options
     * @returns {Promise<Object>} Database properties object
-    */    getDatabaseProperties: (databaseId, options) =>
+    */    
+    getDatabaseProperties: (databaseId, options) =>
         getDatabaseProperties(notionFetch, token, databaseId, options),
+
+
+    /**
+     * Creates a new Notion database with simplified property input
+     * @param {string} parentPageId - ID of the parent page where the database will be created
+     * @param {string} title - Title of the new database
+     * @param {Object} properties - Simplified properties definition (e.g., { Name: "title", Status: { type: "status", options: ["Open", "Done"] } })
+     * @returns {Promise<Object>} Newly created database object
+     */
+    createDatabase: (parentPageId, title, properties) =>
+        createDatabase(notionFetch, token, parentPageId, title, properties),
 
 
     /**
@@ -158,6 +183,78 @@ function easynotion(token) {
      */
     createBulletedListBlock: (text) =>
         createBulletedListBlock(text),
+
+    /**
+     * Creates a numbered list item block
+     * @param {string} text - The content of the list item
+     * @returns {Object} Numbered list block object
+     */
+    createNumberedListBlock: (text) =>
+        createNumberedListBlock(text),
+
+    /**
+     * Creates a toggle block that can contain nested children
+     * @param {string} text - The toggle title
+     * @param {Array<Object>} children - Array of child block objects
+     * @returns {Object} Toggle block object
+     */
+    createToggleBlock: (text, children) =>
+        createToggleBlock(text, children),
+
+    /**
+     * Creates a divider block (horizontal line)
+     * @returns {Object} Divider block object
+     */
+    createDividerBlock: () =>
+        createDividerBlock(),
+
+
+    /**
+     * Creates a code block
+     * @param {string} code - The code content
+     * @param {string} language - The language of the code (e.g., "javascript", "python")
+     * @returns {Object} Code block object
+     */
+    createCodeBlock: (code, language) =>
+        createCodeBlock(code, language),
+
+
+    /**
+     * Creates an image block
+     * @param {string} imageUrl - Public URL of the image
+     * @returns {Object} Image block object
+     */
+    createImageBlock: (imageUrl) =>
+        createImageBlock(imageUrl),
+
+
+    /**
+     * Creates a callout block
+     * @param {string} text - The callout content
+     * @param {string} [icon] - Optional emoji or external URL for the icon
+     * @returns {Object} Callout block object
+     */
+    createCalloutBlock: (text, icon) =>
+        createCalloutBlock(text, icon),
+
+
+    /**
+     * Creates a quote block
+     * @param {string} text - The quoted text
+     * @returns {Object} Quote block object
+     */
+    createQuoteBlock: (text) =>
+        createQuoteBlock(text),
+
+
+    /**
+     * Creates a link to an existing Notion page
+     * @param {string} pageId - ID of the target Notion page
+     * @returns {Object} Link to page block object
+     */
+    createPageLinkBlock: (pageId) =>
+        createPageLinkBlock(pageId),
+
 
     };
 };
