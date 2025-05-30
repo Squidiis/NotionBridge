@@ -1,16 +1,38 @@
 {
-  "name": "notionbridge",
+  "name": "easynotion",
   "version": "1.0.0",
   "type": "module",
-  "main": "server.js",
+  "main": "index.js",
+  "exports": "./index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node index.js",
+    "test": "node test.js"
   },
-  "keywords": [],
+  "keywords": [
+    "notion",
+    "api",
+    "notion-api",
+    "notion-sdk",
+    "integration",
+    "block-builder",
+    "database-helper"
+  ],
   "author": "Squidi",
-  "license": "ISC",
-  "description": "",
+  "license": "MIT",
+  "description": "Lightweight wrapper around the Notion API with helpers for creating databases, pages, and blocks.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Squidiis/EasyNotion"
+  },
+  "bugs": {
+    "url": "https://github.com/Squidiis/EasyNotion/issues"
+  },
+  "homepage": "https://github.com/Squidiis/EasyNotion#readme",
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
-    "notionbridge": "file:"
+    "dotenv": "^16.4.0",
+    "easynotion": "file:"
   }
 }
