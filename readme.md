@@ -34,7 +34,7 @@
 ## Installation
 
 ```bash
-npm install easynotion
+npm install git+https://github.com/Squidiis/EasyNotion.git
 ```
 
 ## Usage
