@@ -1,5 +1,16 @@
 import { getDatabaseProperties, createDatabase } from './lib/database.js';
-import { queryDatabase, queryAllDatabase, createPage, appendBlockChildren } from './lib/pages.js';
+import { 
+    queryDatabase, 
+    queryAllDatabase, 
+    createPage,
+    getBlockChildren,
+    appendBlockChildren, 
+    archivePage, 
+    updatePageProperties, 
+    updatePage, 
+    deleteBlock, 
+    clearPage
+    } from './lib/pages.js';
 import { 
     createParagraphBlock, 
     createHeadingBlock,
@@ -70,6 +81,7 @@ function easynotion(token) {
 
     /**
     * Returns properties of the database, optionally with full options list
+    * 
     * @param {string} databaseId - ID of the Notion database
     * @param {Object} options - Additional options
     * @returns {Promise<Object>} Database properties object
@@ -80,6 +92,7 @@ function easynotion(token) {
 
     /**
      * Creates a new Notion database with simplified property input
+     * 
      * @param {string} parentPageId - ID of the parent page where the database will be created
      * @param {string} title - Title of the new database
      * @param {Object} properties - Simplified properties definition (e.g., { Name: "title", Status: { type: "status", options: ["Open", "Done"] } })
@@ -107,6 +120,7 @@ function easynotion(token) {
 
     /**
     * Executes a simple query on the database, returning first page of results
+    * 
     * @param {string} databaseId
     * @param {Object} filter - Simplified filter object
     * @returns {Promise<Object>} Query results
@@ -116,7 +130,7 @@ function easynotion(token) {
 
     /**
     * Creates a new page in the specified Notion database.
-    * 
+
     * @param {string} databaseId - The ID of the Notion database where the page will be created.
     * @param {Object} properties - An object representing the page properties and their values.
     *                              The properties must match the database schema.
@@ -124,6 +138,54 @@ function easynotion(token) {
     */
     createPage: (databaseId, properties) =>
         createPage(notionFetch, token, databaseId, properties),
+
+    /**
+     * Archives a Notion page by setting `archived: true`
+     * 
+     * @param {Function} notionFetch - The fetch wrapper with headers and error handling
+     * @param {string} token - Your Notion integration token
+     * @param {string} pageId - The ID of the page to archive
+     * @returns {Promise<Object>} The archived page object
+     */
+    archivePage: (pageId) =>
+        archivePage(notionFetch, token, pageId),
+
+    /**
+     * Updates the properties of an existing Notion page
+     * 
+     * @param {Function} notionFetch - The fetch wrapper
+     * @param {string} token - Your Notion integration token
+     * @param {string} pageId - The ID of the page to update
+     * @param {Object} properties - The properties to set (e.g. { Name: "New title", Status: "Done" })
+     * @returns {Promise<Object>} Updated page object
+     */ 
+    updatePageProperties: (pageId, properties) =>
+        updatePageProperties(notionFetch, token, pageId, properties),
+
+    /**
+    * Updates a Notion page's metadata and properties.
+    * Supports updating page properties, icon, cover, archived status, and parent.
+    * 
+    * @param {string} pageId - ID of the Notion page to update
+    * @param {Object} update - Update object. Possible keys:
+    *   - properties: Object with property values to update (e.g. { Name: "New Title" })
+    *   - icon: Emoji string or external URL string or Notion icon object
+    *   - cover: External URL string for the page cover image
+    *   - archived: Boolean to archive/unarchive the page
+    * @returns {Promise<Object>} Updated page object
+    */
+    updatePage: (pageId, update) => 
+        updatePage(notionFetch, token, pageId, update),
+
+    /**
+     * Retrieves the child blocks of a given Notion block or page
+     * 
+     * @param {string} blockId - The ID of the block or page
+     * @param {number} [pageSize=100] - Number of results to fetch (max 100)
+     * @returns {Promise<Object>} List of child blocks
+     */
+    getBlockChildren: (blockId, pageSize) =>
+        getBlockChildren(notionFetch, token, blockId, pageSize),
 
     /**
      * Appends child blocks to a parent block in Notion.
@@ -137,6 +199,28 @@ function easynotion(token) {
      */
     appendBlockChildren: (blockId, children) =>
         appendBlockChildren(notionFetch, token, blockId, children),
+
+    /**
+     * Clears all child blocks from a Notion page or block
+     * 
+     * @param {Function} notionFetch - The fetch wrapper
+     * @param {string} token - Your Notion integration token
+     * @param {string} blockId - ID of the page or block whose children should be removed
+     * @returns {Promise<void>}
+     */
+    clearPage: (blockId) =>
+        clearPage(notionFetch, token, blockId),
+
+    /**
+     * Deletes a block (removes it from the page)
+     * 
+     * @param {Function} notionFetch - The fetch wrapper with headers and error handling
+     * @param {string} token - Your Notion integration token
+     * @param {string} blockId - The ID of the block to delete
+     * @returns {Promise<Object>} API response object
+     */
+    deleteBlock: (blockId) =>
+        deleteBlock(notionFetch, token, blockId),
 
     /**
      * Creates a paragraph block object formatted for the Notion API.
@@ -186,6 +270,7 @@ function easynotion(token) {
 
     /**
      * Creates a numbered list item block
+     * 
      * @param {string} text - The content of the list item
      * @returns {Object} Numbered list block object
      */
@@ -194,6 +279,7 @@ function easynotion(token) {
 
     /**
      * Creates a toggle block that can contain nested children
+     * 
      * @param {string} text - The toggle title
      * @param {Array<Object>} children - Array of child block objects
      * @returns {Object} Toggle block object
@@ -203,6 +289,7 @@ function easynotion(token) {
 
     /**
      * Creates a divider block (horizontal line)
+     * 
      * @returns {Object} Divider block object
      */
     createDividerBlock: () =>
@@ -211,6 +298,7 @@ function easynotion(token) {
 
     /**
      * Creates a code block
+     * 
      * @param {string} code - The code content
      * @param {string} language - The language of the code (e.g., "javascript", "python")
      * @returns {Object} Code block object
@@ -221,6 +309,7 @@ function easynotion(token) {
 
     /**
      * Creates an image block
+     * 
      * @param {string} imageUrl - Public URL of the image
      * @returns {Object} Image block object
      */
@@ -230,6 +319,7 @@ function easynotion(token) {
 
     /**
      * Creates a callout block
+     * 
      * @param {string} text - The callout content
      * @param {string} [icon] - Optional emoji or external URL for the icon
      * @returns {Object} Callout block object
@@ -240,6 +330,7 @@ function easynotion(token) {
 
     /**
      * Creates a quote block
+     * 
      * @param {string} text - The quoted text
      * @returns {Object} Quote block object
      */
@@ -249,6 +340,7 @@ function easynotion(token) {
 
     /**
      * Creates a link to an existing Notion page
+     * 
      * @param {string} pageId - ID of the target Notion page
      * @returns {Object} Link to page block object
      */

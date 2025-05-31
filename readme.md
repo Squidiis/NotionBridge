@@ -20,8 +20,14 @@
   - Dividers, quotes, callouts  
   - Images via public URLs  
   - Page links to existing Notion pages  
+- Archive pages by setting their archived status  
+- Update properties of existing pages  
+- Update page metadata including properties, icon, cover, archived status, and parent  
+- Retrieve child blocks of a page or block  
+- Clear all child blocks from a page or block  
+- Delete individual blocks  
 - Uses simple fetch requests with your Notion integration token  
-- Lightweight and flexible — zero external dependencies 
+- Lightweight and flexible — zero external dependencies  
 
 ---
 
@@ -90,10 +96,10 @@ example();
 
 `getDatabaseProperties(databaseId, options)`  
 Parameters:  
-- `databaseId (string)` — The Notion database ID
-- `options` (object, optional) — Options object; { full: true } to get detailed properties including options lists
+- `databaseId (string)` — The Notion database ID  
+- `options` (object, optional) — Options object; { full: true } to get detailed properties including options lists  
 Returns:  
-- Promise resolving to an object with database properties
+- Promise resolving to an object with database properties  
 
 `createDatabase(parentPageId, title, properties)`  
 Parameters:  
@@ -101,44 +107,98 @@ Parameters:
 - `title (string)` — The title of the new database  
 - `properties (object)` — Simplified object defining properties, e.g. `{ Name: "title", Status: { type: "status", options: ["Open", "Done"] } }`  
 Returns:  
-- Promise resolving to the newly created database object
+- Promise resolving to the newly created database object  
 
 `queryDatabase(databaseId, filter)`  
 Parameters:  
-- `databaseId` (string): The Notion database ID
-- `filter` (object, optional): Notion API filter object to limit query results
+- `databaseId` (string): The Notion database ID  
+- `filter` (object, optional): Notion API filter object to limit query results  
 Returns:  
 - Promise resolving to a single page of results matching the filter, including pagination info  
 Description:  
-Queries the specified database with optional filters, returning matching pages (max 100 per call).
+Queries the specified database with optional filters, returning matching pages (max 100 per call).  
 
 `queryAllDatabase(databaseId, filter)`  
 Parameters:  
-- `databaseId` (string): The Notion database ID
-- `filter` (object, optional): Notion API filter object to limit query results
+- `databaseId` (string): The Notion database ID  
+- `filter` (object, optional): Notion API filter object to limit query results  
 Returns:  
 - Promise resolving to an array with all pages matching the filter, handles pagination internally  
 Description:  
-Retrieves all pages from a database matching the filter, iterating over all pages automatically.
+Retrieves all pages from a database matching the filter, iterating over all pages automatically.  
 
 `createPage(databaseId, properties)`  
-Parameters:
-- `databaseId` (string): The Notion database ID
-- `properties` (object): Properties object following the Notion API format to set on the new page
+Parameters:  
+- `databaseId` (string): The Notion database ID  
+- `properties` (object): Properties object following the Notion API format to set on the new page  
 Returns:  
 - Promise resolving to the created page object  
 Description:  
-Creates a new page in the specified database with the given property values.
+Creates a new page in the specified database with the given property values.  
 
 `appendBlockChildren(blockId, children)`  
 Parameters:  
-`blockId (string)` — The ID of the parent block or page to append children to
-`children` (Array<Object>) — Array of block objects created by block builder functions
+- `blockId (string)` — The ID of the parent block or page to append children to  
+- `children` (Array<Object>) — Array of block objects created by block builder functions  
 Returns:  
 - Promise resolving to the Notion API response containing the updated block children  
 Description:  
-Appends an array of child blocks to a specified block or page by calling the Notion API PATCH endpoint
-`/v1/blocks/{blockId}/children.`
+Appends an array of child blocks to a specified block or page by calling the Notion API PATCH endpoint  
+`/v1/blocks/{blockId}/children.`  
+
+`archivePage(pageId)`  
+Parameters:  
+- `pageId` (string) — The ID of the page to archive  
+Returns:  
+- Promise resolving to the archived page object  
+Description:  
+Archives a Notion page by setting `archived: true`.  
+
+`updatePageProperties(pageId, properties)`  
+Parameters:  
+- `pageId` (string) — The ID of the page to update  
+- `properties` (object) — Properties to update, e.g. `{ Name: "New Title", Status: "Done" }`  
+Returns:  
+- Promise resolving to the updated page object  
+Description:  
+Updates the properties of an existing Notion page.  
+
+`updatePage(pageId, update)`  
+Parameters:  
+- `pageId` (string) — The ID of the page to update  
+- `update` (object) — Update object with possible keys:  
+  - `properties`: Object of property values to update  
+  - `icon`: Emoji string, external URL string, or Notion icon object  
+  - `cover`: External URL string for page cover image  
+  - `archived`: Boolean to archive/unarchive the page  
+Returns:  
+- Promise resolving to the updated page object  
+Description:  
+Updates a Notion page’s metadata and properties, including icon, cover, archived status, and parent.  
+
+`getBlockChildren(blockId, pageSize)`  
+Parameters:  
+- `blockId` (string) — The ID of the block or page  
+- `pageSize` (number, optional) — Number of results to fetch (max 100)  
+Returns:  
+- Promise resolving to a list of child blocks  
+
+`clearPage(blockId)`  
+Parameters:  
+- `blockId` (string) — ID of the page or block whose children should be removed  
+Returns:  
+- Promise resolving to void  
+Description:  
+Clears all child blocks from a Notion page or block.  
+
+`deleteBlock(blockId)`  
+Parameters:  
+- `blockId` (string) — The ID of the block to delete  
+Returns:  
+- Promise resolving to the API response object  
+Description:  
+Deletes a block by removing it from the page.  
+
 
 ---
 
