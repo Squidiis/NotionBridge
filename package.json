@@ -1,5 +1,5 @@
 {
-  "name": "easynotion",
+  "name": "@squidiis/easynotion",
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
@@ -22,7 +22,7 @@
   "description": "Lightweight wrapper around the Notion API with helpers for creating databases, pages, and blocks.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Squidiis/EasyNotion"
+    "url": "git+https://github.com/Squidiis/EasyNotion.git"
   },
   "bugs": {
     "url": "https://github.com/Squidiis/EasyNotion/issues"
@@ -31,13 +31,12 @@
   "engines": {
     "node": ">=18"
   },
-  "dependencies": {
-    "dotenv": "^16.4.0",
-    "easynotion": "file:"
-  },
   "files": [
     "index.js",
     "README.md",
     "lib/"
-  ]
+  ],
+  "dependencies": {
+    "@squidiis/easynotion": "file:"
+  }
 }
