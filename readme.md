@@ -175,7 +175,8 @@ Creates a new page in the specified database with given property values.
 - Promise resolving to the Notion API response containing the updated block children  
 
 **Description:**  
-Appends child blocks to a specified block or page by calling the Notion API PATCH endpoint `/v1/blocks/{blockId}/children`.  
+Appends child blocks to a specified block or page by calling the Notion API PATCH endpoint  
+`/v1/blocks/{blockId}/children`.
 
 ---
 
@@ -188,7 +189,7 @@ Appends child blocks to a specified block or page by calling the Notion API PATC
 - Promise resolving to the archived page object  
 
 **Description:**  
-Archives a Notion page by setting `archived: true`.  
+Archives a Notion page by setting `archived: true`.
 
 ---
 
