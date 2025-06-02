@@ -181,8 +181,8 @@ Creates a new page in the specified database with given property values.
 ### `appendBlockChildren(blockId, children)`
 
 **Parameters:**  
-- `blockId` (string) — ID of the parent block or page to append children to  <br>
-- `children` (Array<Object>) — Array of block objects created by block builder functions  <br>
+- `blockId` (string) — ID of the parent block or page to append children to  
+- `children` (Array<Object>) — Array of block objects created by block builder functions  
 
 **Returns:**  
 - Promise resolving to the Notion API response containing the updated block children  
