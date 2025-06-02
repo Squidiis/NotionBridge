@@ -1,7 +1,8 @@
 import { getDatabaseProperties, createDatabase } from './lib/database.js';
 import { 
     queryDatabase, 
-    queryAllDatabase, 
+    queryAllDatabase,
+    getPage, 
     createPage,
     getBlockChildren,
     appendBlockChildren, 
@@ -129,8 +130,18 @@ function easynotion(token) {
         queryDatabase(notionFetch, token, databaseId, filter),
 
     /**
-    * Creates a new page in the specified Notion database.
+    * Fetches full page data from Notion.
+    * 
+    * @param {string} pageId - The ID of the page.
+    * @returns {Promise<Object>} Notion page object.
+    */
+    getPage: (pageId) =>
+        getPage(notionFetch, token, pageId),
 
+
+    /**
+    * Creates a new page in the specified Notion database.
+    *
     * @param {string} databaseId - The ID of the Notion database where the page will be created.
     * @param {Object} properties - An object representing the page properties and their values.
     *                              The properties must match the database schema.

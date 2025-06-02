@@ -151,6 +151,19 @@ Retrieves all pages from a database matching the filter, iterating over all page
 
 ---
 
+### `getPage(pageId)`
+
+**Parameters:**  
+- `pageId` (string) — The ID of the Notion page to retrieve  
+
+**Returns:**  
+- Promise resolving to the page object  
+
+**Description:**  
+Fetches and returns the metadata and properties of a specific Notion page by its ID.
+
+---
+
 ### `createPage(databaseId, properties)`
 
 **Parameters:**  
@@ -170,10 +183,10 @@ Creates a new page in the specified database with given property values.
 **Parameters:**  
 - `blockId` (string) — ID of the parent block or page to append children to  
 - `children` (Array<Object>) — Array of block objects created by block builder functions  
-  
+
 **Returns:**  
 - Promise resolving to the Notion API response containing the updated block children  
-  
+
 **Description:**  
 Appends child blocks to a specified block or page by calling the Notion API PATCH endpoint  
 `/v1/blocks/{blockId}/children`.
