@@ -183,7 +183,7 @@ Creates a new page in the specified database with given property values.
 **Parameters:**  
 - `blockId` (string) — ID of the parent block or page to append children to  
 - `children` (Array<Object>) — Array of block objects created by block builder functions  
-  
+&nbsp;&nbsp;
 **Returns:**  
 - Promise resolving to the Notion API response containing the updated block children  
 
