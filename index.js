@@ -7,7 +7,6 @@ import {
     getBlockChildren,
     appendBlockChildren, 
     archivePage, 
-    updatePageProperties, 
     updatePage, 
     deleteBlock, 
     clearPage
@@ -160,18 +159,6 @@ function easynotion(token) {
      */
     archivePage: (pageId) =>
         archivePage(notionFetch, token, pageId),
-
-    /**
-     * Updates the properties of an existing Notion page
-     * 
-     * @param {Function} notionFetch - The fetch wrapper
-     * @param {string} token - Your Notion integration token
-     * @param {string} pageId - The ID of the page to update
-     * @param {Object} properties - The properties to set (e.g. { Name: "New title", Status: "Done" })
-     * @returns {Promise<Object>} Updated page object
-     */ 
-    updatePageProperties: (pageId, properties) =>
-        updatePageProperties(notionFetch, token, pageId, properties),
 
     /**
     * Updates a Notion page's metadata and properties.
