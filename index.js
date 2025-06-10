@@ -137,7 +137,6 @@ function easynotion(token) {
     getPage: (pageId) =>
         getPage(notionFetch, token, pageId),
 
-
     /**
     * Creates a new page in the specified Notion database.
     *
@@ -176,14 +175,15 @@ function easynotion(token) {
         updatePage(notionFetch, token, pageId, update),
 
     /**
-     * Retrieves the child blocks of a given Notion block or page
-     * 
-     * @param {string} blockId - The ID of the block or page
-     * @param {number} [pageSize=100] - Number of results to fetch (max 100)
-     * @returns {Promise<Object>} List of child blocks
-     */
-    getBlockChildren: (blockId, pageSize) =>
-        getBlockChildren(notionFetch, token, blockId, pageSize),
+    * Retrieves the child blocks of a given Notion block or page.
+    *
+    * @param {string} blockId - The ID of the block or page.
+    * @param {number} [pageSize=100] - Number of results to fetch per request (max 100).
+    * @param {boolean} [getAll=false] - If true, fetches all child blocks by following pagination (`next_cursor`).
+    * @returns {Promise<Object>} - If getAll is true: { results: BlockObject[] }, else: raw Notion API response with pagination info.
+    */
+    getBlockChildren: (blockId, pageSize, getAll) =>
+        getBlockChildren(notionFetch, token, blockId, pageSize, getAll),
 
     /**
      * Appends child blocks to a parent block in Notion.
@@ -199,12 +199,13 @@ function easynotion(token) {
         appendBlockChildren(notionFetch, token, blockId, children),
 
     /**
-     * Clears all child blocks from a Notion page or block
+     * Clears all child blocks from a Notion page or block,
+     * then fetches and returns the updated page/block object.
      * 
      * @param {Function} notionFetch - The fetch wrapper
      * @param {string} token - Your Notion integration token
      * @param {string} blockId - ID of the page or block whose children should be removed
-     * @returns {Promise<void>}
+     * @returns {Promise<Object>} The updated page or block object after clearing its children
      */
     clearPage: (blockId) =>
         clearPage(notionFetch, token, blockId),
