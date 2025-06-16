@@ -73,7 +73,7 @@ async function notionFetch(url, token, options = {}) {
 }
 
 
-function easynotion(token) {
+function notionbridge(token) {
   
     if (!token) throw new Error('API Token is missing!');
 
@@ -351,4 +351,4 @@ function easynotion(token) {
 };
 
 
-export { easynotion };
+export { notionbridge };

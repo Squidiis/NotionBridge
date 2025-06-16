@@ -1,4 +1,4 @@
-# EasyNotion
+# NotionBridge
 
 **A minimal Notion API wrapper without SDK**  
 (Currently still under development)
@@ -34,16 +34,16 @@
 ## Installation
 
 ```bash
-npm install git+https://github.com/Squidiis/EasyNotion.git
+npm install git+https://github.com/Squidiis/NotionBridge.git
 ```
 
 ## Usage
 
 ```js
-import { getDatabaseProperties } from 'easynotion';
+import { getDatabaseProperties } from 'notionbridge';
 
 // Initialize your client with your Notion API token
-const notion = easynotion('your-integration-token');
+const notion = notionbridge('your-integration-token');
 
 // Example: Get database properties
 async function example() {
