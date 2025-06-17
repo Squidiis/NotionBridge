@@ -1,0 +1,9 @@
+{
+  "label": "Database",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "title": "Block API Reference",
+    "description": "Functions to interact with Notion databases: querying, creating, updating and retrieving structure."
+  }
+}

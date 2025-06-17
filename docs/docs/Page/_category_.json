@@ -1,0 +1,9 @@
+{
+  "label": "Pages",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "title": "Pages API Reference",
+    "description": "Functions to interact with Notion pages: querying, reading, filtering and more using simplified input syntax."
+  }
+}
