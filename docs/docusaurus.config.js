@@ -17,7 +17,7 @@ const config = {
 
   organizationName: 'Squidiis',
   projectName: 'NotionBridge',
-  deploymentBranch: 'gh-pages', // Optional, kann auch automatisch erkannt werden
+  deploymentBranch: 'gh-pages',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -33,7 +33,9 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: './sidebars.js',
+          path: 'docs',                 
+          routeBasePath: 'docs',        
+          sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
             'https://github.com/Squidiis/NotionBridge/edit/main/docs/',
         },
@@ -50,79 +52,77 @@ const config = {
           onUntruncatedBlogPosts: 'warn',
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: require.resolve('./src/css/custom.css'),
         },
       }),
     ],
   ],
 
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      image: 'img/social-card.png',
-      navbar: {
-        title: 'NotionBridge',
-        logo: {
-          alt: 'NotionBridge Logo',
-          src: 'img/logo-light.svg',     // Light Mode
-          srcDark: 'img/logo-dark.svg',  // Dark Mode
-          href: '/NotionBridge/docs',
+  themeConfig: {
+    image: 'img/social-card.png',
+    navbar: {
+      title: 'NotionBridge',
+      logo: {
+        alt: 'NotionBridge Logo',
+        src: 'img/logo-light.svg',
+        srcDark: 'img/logo-dark.svg',
+        href: '/NotionBridge/docs',     // Navbar-Link korrekt gesetzt
+      },
+      items: [
+        {to: '/NotionBridge/blog', label: 'Blog', position: 'left'},  // Auch hier korrekter Pfad
+        {
+          href: 'https://github.com/Squidiis/NotionBridge',
+          label: 'GitHub',
+          position: 'right',
         },
-        items: [
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/Squidiis/NotionBridge',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Documentation',
-            items: [
-              {
-                label: 'Introduction',
-                to: '/docs',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'GitHub Issues',
-                href: 'https://github.com/Squidiis/NotionBridge/issues',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discord.gg/3sZhp3q6bD',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/Squidiis/NotionBridge',
-              },
-            ],
-          },
-        ],
-        copyright: `© ${new Date().getFullYear()} NotionBridge. Built with Docusaurus.`,
-      },
-      prism: {
-        theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
-      },
-    }),
+      ],
+    },
+    footer: {
+      style: 'dark',
+      links: [
+        {
+          title: 'Documentation',
+          items: [
+            {
+              label: 'Introduction',
+              to: '/NotionBridge/docs',    // Vollständiger Pfad
+            },
+          ],
+        },
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'GitHub Issues',
+              href: 'https://github.com/Squidiis/NotionBridge/issues',
+            },
+            {
+              label: 'Discord',
+              href: 'https://discord.gg/3sZhp3q6bD',
+            },
+          ],
+        },
+        {
+          title: 'More',
+          items: [
+            {
+              label: 'Blog',
+              to: '/NotionBridge/blog',    // Vollständiger Pfad
+            },
+            {
+              label: 'GitHub',
+              href: 'https://github.com/Squidiis/NotionBridge',
+            },
+          ],
+        },
+      ],
+      copyright: `© ${new Date().getFullYear()} NotionBridge. Built with Docusaurus.`,
+    },
+    prism: {
+      theme: prismThemes.github,
+      darkTheme: prismThemes.dracula,
+    },
+  },
 };
 
 export default config;
