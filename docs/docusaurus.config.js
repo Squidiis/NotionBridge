@@ -1,6 +1,6 @@
 // @ts-check
 
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -33,8 +33,8 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          path: 'docs',                 
-          routeBasePath: 'docs',        
+          path: 'docs',
+          routeBasePath: 'docs',
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
             'https://github.com/Squidiis/NotionBridge/edit/main/docs/',
@@ -52,7 +52,7 @@ const config = {
           onUntruncatedBlogPosts: 'warn',
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: require.resolve('./src/css/custom.css'),
         },
       }),
     ],
@@ -66,10 +66,10 @@ const config = {
         alt: 'NotionBridge Logo',
         src: 'img/logo-light.svg',
         srcDark: 'img/logo-dark.svg',
-        href: '/NotionBridge/docs',     // Navbar-Link korrekt gesetzt
+        href: '/NotionBridge/docs',
       },
       items: [
-        {to: '/NotionBridge/blog', label: 'Blog', position: 'left'},  // Auch hier korrekter Pfad
+        { to: '/NotionBridge/blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/Squidiis/NotionBridge',
           label: 'GitHub',
@@ -85,7 +85,7 @@ const config = {
           items: [
             {
               label: 'Introduction',
-              to: '/NotionBridge/docs',    // Vollständiger Pfad
+              to: '/NotionBridge/docs',
             },
           ],
         },
@@ -107,7 +107,7 @@ const config = {
           items: [
             {
               label: 'Blog',
-              to: '/NotionBridge/blog',    // Vollständiger Pfad
+              to: '/NotionBridge/blog',
             },
             {
               label: 'GitHub',
@@ -123,6 +123,20 @@ const config = {
       darkTheme: prismThemes.dracula,
     },
   },
+
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            from: '/',
+            to: '/docs',
+          },
+        ],
+      },
+    ],
+  ],
 };
 
 export default config;
