@@ -13,7 +13,7 @@ const config = {
   },
 
   url: 'https://squidiis.github.io',
-  baseUrl: '/NotionBridge/docs',
+  baseUrl: '/NotionBridge/',
 
   organizationName: 'Squidiis',
   projectName: 'NotionBridge',
