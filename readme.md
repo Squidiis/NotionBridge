@@ -1,7 +1,7 @@
 # NotionBridge
 
 **A minimal Notion API wrapper without SDK**  
-(Currently still under development)
+(Currently still under development)  
 Docs: https://squidiis.github.io/NotionBridge-docs/#intro
 
 ---
