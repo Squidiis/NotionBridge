@@ -346,6 +346,7 @@ function notionbridge(token) {
     createPageLinkBlock: (pageId) =>
         createPageLinkBlock(pageId),
 
+    
     /**
     * Maps a raw Notion API response (page, database, block, or list)
     * into a simplified, flat JavaScript object that is easier to work with.
