@@ -346,6 +346,18 @@ function notionbridge(token) {
     createPageLinkBlock: (pageId) =>
         createPageLinkBlock(pageId),
 
+    /**
+    * Maps a raw Notion API response (page, database, block, or list)
+    * into a simplified, flat JavaScript object that is easier to work with.
+    * Supports automatic mapping of Notion Pages (with properties),
+    * Databases (with schema overview), Blocks (with text, type, etc.),
+    * and Lists (arrays of any of the above).
+    * 
+    * @param {Object} notionResponse - The raw response object from the Notion API
+    * @returns {Object|Array} A simplified version of the response object
+    */
+    mapResponse: (notionResponse) =>
+        mapResponse(notionResponse),
 
     };
 };
