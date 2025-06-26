@@ -1,5 +1,5 @@
 {
-  "name": "@squidiis/easynotion",
+  "name": "notionbridge",
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
@@ -19,24 +19,22 @@
   ],
   "author": "Squidi",
   "license": "MIT",
-  "description": "Lightweight wrapper around the Notion API with helpers for creating databases, pages, and blocks.",
+  "description": "Minimal Notion API wrapper with helpers for creating databases, pages, and blocks. No SDK required.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Squidiis/EasyNotion.git"
+    "url": "git+https://github.com/Squidiis/NotionBridge.git"
   },
   "bugs": {
-    "url": "https://github.com/Squidiis/EasyNotion/issues"
+    "url": "https://github.com/Squidiis/NotionBridge/issues"
   },
-  "homepage": "https://github.com/Squidiis/EasyNotion#readme",
+  "homepage": "https://github.com/Squidiis/NotionBridge#readme",
   "engines": {
     "node": ">=18"
   },
   "files": [
     "index.js",
-    "README.md",
+    "readme.md",
     "lib/"
   ],
-  "dependencies": {
-    "@squidiis/easynotion": "file:"
-  }
+  "dependencies": {}
 }
