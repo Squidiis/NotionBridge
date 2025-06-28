@@ -4,8 +4,6 @@
 (Currently under development)  
 Docs: https://squidiis.github.io/NotionBridge-docs/#intro
 
----
-
 ## Features
 
 - Retrieve database properties (with or without full option details)
@@ -29,15 +27,11 @@ Docs: https://squidiis.github.io/NotionBridge-docs/#intro
 - Uses simple fetch requests with your Notion integration token
 - Lightweight and flexible — zero external dependencies
 
----
-
 ## Installation
 
 ```bash
 npm install git+https://github.com/Squidiis/NotionBridge.git
 ```
-
----
 
 ## Quickstart
 
@@ -47,8 +41,6 @@ import { notionbridge } from 'notionbridge';
 // Initialize your client with your Notion API token
 const notion = notionbridge('your-integration-token');
 ```
-
----
 
 ## Usage Example
 
@@ -91,8 +83,6 @@ await notion.appendBlockChildren(newPage.id, blockChildren);
 console.log('Blocks appended to new page');
 ```
 
----
-
 ## API Overview
 
 - `notion.getDatabaseProperties(databaseId, options)`
@@ -122,13 +112,9 @@ console.log('Blocks appended to new page');
   - `notion.createPageLinkBlock(pageId)`
 - `notion.mapResponse(notionApiResponse)` — Flattens Notion API responses for easier use
 
----
-
 ## Notes
 
 - Make sure your integration token has access to the target workspace and databases.
 - This library does **not** use the official Notion SDK, only direct HTTP requests.
 - All API calls are async and return Promises.
 - For more advanced usage and documentation, see [the docs](https://squidiis.github.io/NotionBridge-docs/#intro).
-
----
