@@ -110,6 +110,7 @@ console.log('Blocks appended to new page');
   - `notion.createCalloutBlock(text, icon)`
   - `notion.createQuoteBlock(text)`
   - `notion.createPageLinkBlock(pageId)`
+  - `notion.markdownToBlocks(markdown)` — Converts Markdown to Notion block objects
 - `notion.mapResponse(notionApiResponse)` — Flattens Notion API responses for easier use
 
 ## Notes
