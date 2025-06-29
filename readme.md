@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/yourusername/yourrepo/main/banner.png" alt="Notion Bridge" width="400"/>
+</p>
+
 # NotionBridge
 
 **A minimal Notion API wrapper without SDK**  
