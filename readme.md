@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./Banner.png" alt="Notion Bridge" width="400"/>
+  <img src="./Banner.png" alt="Notion Bridge" width="100%"/>
 </p>
 
 # NotionBridge
