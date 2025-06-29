@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/yourusername/yourrepo/main/banner.png" alt="Notion Bridge" width="400"/>
+  <img src="./Banner.png" alt="Notion Bridge" width="400"/>
 </p>
 
 # NotionBridge
