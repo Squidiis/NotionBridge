@@ -25,6 +25,7 @@ import {
     createQuoteBlock,
     createPageLinkBlock
     } from './lib/blocks.js';
+import { markdownToBlocks } from './lib/markdownToBlocks.js';
 
 // Notion version
 const NOTION_VERSION = '2022-06-28';
@@ -326,7 +327,6 @@ function notionbridge(token) {
     createCalloutBlock: (text, icon) =>
         createCalloutBlock(text, icon),
 
-
     /**
      * Creates a quote block
      * 
@@ -335,7 +335,6 @@ function notionbridge(token) {
      */
     createQuoteBlock: (text) =>
         createQuoteBlock(text),
-
 
     /**
      * Creates a link to an existing Notion page
@@ -346,7 +345,15 @@ function notionbridge(token) {
     createPageLinkBlock: (pageId) =>
         createPageLinkBlock(pageId),
 
-    
+    /**
+     * Converts Markdown text to an array of Notion block objects.
+     * 
+     * @param {string} markdown - Markdown string to convert.
+     * @returns {Array} Array of Notion block objects.
+     */
+    markdownToBlocks: (markdown) =>
+        markdownToBlocks(markdown),
+
     /**
     * Maps a raw Notion API response (page, database, block, or list)
     * into a simplified, flat JavaScript object that is easier to work with.
