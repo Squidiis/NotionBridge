@@ -36,5 +36,6 @@
     "readme.md",
     "lib/"
   ],
-  "dependencies": {}
+  "dependencies": {
+  }
 }
