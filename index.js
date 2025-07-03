@@ -42,35 +42,76 @@ async function notionFetch(url, token, options = {}) {
             'Content-Type': 'application/json',
             ...options.headers,
         },
-    body: options.body ? JSON.stringify(options.body) : undefined,
+        body: options.body ? JSON.stringify(options.body) : undefined,
     });
 
     if (!res.ok) {
-
         let errorMessage = `Notion API ERROR ${res.status}`;
+        let errorData = null;
+        let errorDetails = {};
 
         try {
-            const errorData = await res.json();
+            errorData = await res.json();
 
             if (errorData && errorData.message) {
                 errorMessage += `: ${errorData.message}`;
-                
-                if (errorData.code === 'validation_error') {
-                errorMessage += ` — Validation failed. Check your properties and values.`;
-                } else if (errorData.code === 'unauthorized') {
-                errorMessage += ` — Unauthorized: Invalid or missing API token.`;
-                } else if (errorData.code === 'object_not_found') {
-                errorMessage += ` — Object not found: Check your database or page ID.`;
+                errorDetails.message = errorData.message;
+                errorDetails.code = errorData.code;
+                errorDetails.status = res.status;
+                errorDetails.url = url;
+                errorDetails.method = options.method || 'GET';
+                if (options.body) errorDetails.body = options.body;
+
+                switch (errorData.code) {
+                    case 'validation_error':
+                        errorMessage += ` — Validation failed. Check your properties and values.`;
+                        break;
+                    case 'unauthorized':
+                        errorMessage += ` — Unauthorized: Invalid or missing API token.`;
+                        break;
+                    case 'object_not_found':
+                        errorMessage += ` — Object not found: Check your database or page ID.`;
+                        break;
+                    case 'rate_limited':
+                        errorMessage += ` — Rate limited: Too many requests.`;
+                        break;
+                    case 'internal_server_error':
+                        errorMessage += ` — Notion internal server error.`;
+                        break;
                 }
+            } else {
+                errorMessage += `: ${JSON.stringify(errorData)}`;
             }
-        } catch {
-            errorMessage += `: ${await res.text()}`;
+        } catch (e) {
+            const text = await res.text();
+            errorMessage += `: ${text}`;
+            errorDetails.raw = text;
         }
 
-        throw new Error(errorMessage);
+        errorDetails.request = {
+            url,
+            method: options.method || 'GET',
+            headers: options.headers,
+            body: options.body
+        };
+        errorDetails.timestamp = new Date().toISOString();
+
+        const error = new Error(errorMessage);
+        error.notion = errorDetails;
+        error.status = res.status;
+        error.code = errorData?.code;
+        error.url = url;
+        error.requestBody = options.body;
+        error.response = errorData;
+
+        if (typeof Error.captureStackTrace === 'function') {
+            Error.captureStackTrace(error, notionFetch);
+        }
+
+        throw error;
     }
 
-  return res.json();
+    return res.json();
 }
 
 
