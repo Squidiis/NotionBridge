@@ -26,7 +26,7 @@ import {
     createPageLinkBlock
     } from './lib/blocks.js';
 import { markdownToBlocks } from './lib/markdownToBlocks.js';
-import { blocksToMarkdown } from './lib/exportMardown.js';
+import { blocksToMarkdown } from './lib/blocksToMarkdown.js';
 
 // Notion version
 const NOTION_VERSION = '2022-06-28';
@@ -402,7 +402,7 @@ function notionbridge(token) {
      * @param {Array} blocks - Array of mapped Notion block objects (e.g. from mapResponse or getBlockChildren)
      * @returns {string} Markdown string
      */
-    exportMarkdown: (blocks) =>
+    blocksToMarkdown: (blocks) =>
         blocksToMarkdown(blocks),
 
     /**

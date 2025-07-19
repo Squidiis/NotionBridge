@@ -115,7 +115,7 @@ console.log('Blocks appended to new page');
   - `notion.createQuoteBlock(text)`
   - `notion.createPageLinkBlock(pageId)`
   - `notion.markdownToBlocks(markdown)` — Converts Markdown to Notion block objects
-  - `notion.exportMarkdown(blocks)` — Converts Notion blocks to Markdown string
+  - `notion.blocksToMarkdown(blocks)` — Converts Notion blocks to Markdown string
 - `notion.mapResponse(notionApiResponse)` — Flattens Notion API responses for easier use
 
 ## Notes
