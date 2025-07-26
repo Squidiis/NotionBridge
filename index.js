@@ -7,7 +7,8 @@ import {
     getBlockChildren,
     appendBlockChildren, 
     archivePage, 
-    updatePage, 
+    updatePage,
+    addSelectOption,
     deleteBlock, 
     clearPage
     } from './lib/pages.js';
@@ -216,6 +217,19 @@ function notionbridge(token) {
     */
     updatePage: (pageId, update) => 
         updatePage(notionFetch, token, pageId, update),
+
+
+    /**
+    * Adds a new option to a select or multi-select property of a Notion page.
+    * 
+    * @param {string} pageId - ID of the Notion page to update
+    * @param {string} propertyName - Name of the select/multi-select property
+    * @param {string} newOption - The new option name to add/select
+    * @param {boolean} [multiSelect=true] - Whether the property is multi-select (default true)
+    * @returns {Promise<Object>} Updated page object
+    */
+    addSelectOption: (pageId, propertyName, newOption, multiSelect = true) =>
+        addSelectOption(notionFetch, token, pageId, propertyName, newOption, multiSelect),
 
     /**
     * Retrieves the child blocks of a given Notion block or page.
