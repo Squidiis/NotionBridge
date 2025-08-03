@@ -15,6 +15,7 @@ Docs: https://squidiis.github.io/NotionBridge-docs/#intro
 - Query **all** database entries with automatic pagination
 - Create new pages in a database
 - Create new databases with simple property definitions
+- Add or select new values in select/multi-select fields dynamically
 - Append child blocks to any block or page
 - Easily create various block types:
   - Paragraph, headings, to-dos, bulleted lists, numbered lists
@@ -97,6 +98,7 @@ console.log('Blocks appended to new page');
 - `notion.createPage(databaseId, properties)`
 - `notion.archivePage(pageId)`
 - `notion.updatePage(pageId, updateObject)`
+- `notion.addSelectOption(pageId, propertyName, newOption, multiSelect)`
 - `notion.getBlockChildren(blockId, pageSize, getAll)`
 - `notion.appendBlockChildren(blockId, children)`
 - `notion.clearPage(blockId)`
