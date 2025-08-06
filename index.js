@@ -8,6 +8,7 @@ import {
     appendBlockChildren, 
     archivePage, 
     updatePage,
+    updatePages,
     addSelectOption,
     deleteBlock, 
     clearPage
@@ -218,6 +219,24 @@ function notionbridge(token) {
     updatePage: (pageId, update) => 
         updatePage(notionFetch, token, pageId, update),
 
+    /**
+    * Updates multiple Notion pages' metadata and properties.
+    * Supports updating properties, icon, cover, and archived status for each page.
+    * Each page update is processed sequentially, and individual results are returned.
+    * 
+    * @param {Array<Object>} updatesArray - Array of page update objects. Each object must have:
+    *   - pageId: {string} ID of the Notion page to update
+    *   - update: {Object} Update object. Possible keys:
+    *       - properties: Object with property values to update (e.g. { Name: "New Title" })
+    *       - icon: Emoji string or external URL string or Notion icon object
+    *       - cover: External URL string for the page cover image
+    *       - archived: Boolean to archive/unarchive the page
+    * @returns {Promise<Array<Object>>} Array of results for each page:
+    *   - { pageId, status: 'fulfilled', response } if successful
+    *   - { pageId, status: 'rejected', error } if an error occurred
+    */
+    updatePages: (updatesArray) =>
+        updatePages(notionFetch, token, updatesArray),
 
     /**
     * Adds a new option to a select or multi-select property of a Notion page.
