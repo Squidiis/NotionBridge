@@ -26,6 +26,7 @@ Docs: https://squidiis.github.io/NotionBridge-docs/#intro
   - Page links to existing Notion pages
 - Archive pages by setting their archived status
 - Update properties and metadata of existing pages (icon, cover, archived, etc.)
+- Update multiple pages at once (properties, icon, cover, archived status)
 - Retrieve child blocks of a page or block (with pagination or all at once)
 - Clear all child blocks from a page or block
 - Delete individual blocks
@@ -98,6 +99,7 @@ console.log('Blocks appended to new page');
 - `notion.createPage(databaseId, properties)`
 - `notion.archivePage(pageId)`
 - `notion.updatePage(pageId, updateObject)`
+- `notion.updatePages(updatesArray)` — Update multiple pages’ properties, icon, cover, and archived status at once
 - `notion.addSelectOption(pageId, propertyName, newOption, multiSelect)`
 - `notion.getBlockChildren(blockId, pageSize, getAll)`
 - `notion.appendBlockChildren(blockId, children)`

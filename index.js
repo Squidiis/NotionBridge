@@ -240,7 +240,7 @@ function notionbridge(token) {
 
     /**
     * Adds a new option to a select or multi-select property of a Notion page.
-    * 
+    *
     * @param {string} pageId - ID of the Notion page to update
     * @param {string} propertyName - Name of the select/multi-select property
     * @param {string} newOption - The new option name to add/select
